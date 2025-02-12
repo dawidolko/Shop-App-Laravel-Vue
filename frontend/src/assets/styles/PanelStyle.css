@@ -1,0 +1,71 @@
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 50px;
+}
+p {
+  font-size: 1.5rem;
+  text-align: center;
+}
+.panel-container {
+  margin: 0 auto;
+  margin-bottom: 170px;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+@media screen and(min-width: 640px) {
+  .panel-container {
+    margin-left: 300px;
+  }
+}
+.purchase-table {
+  width: 90%;
+  margin: 20px auto 0;
+  border-collapse: collapse;
+}
+.purchase-table th,
+.purchase-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.purchase-item-image {
+  width: 70px;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  min-width: 300px;
+  text-align: center;
+}
+.modal-content.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.modal-content.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.modal-close {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  background: #ccc;
+  cursor: pointer;
+}

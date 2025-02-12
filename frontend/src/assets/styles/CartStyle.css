@@ -1,0 +1,121 @@
+cart-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+@media screen and (min-width: 910px) {
+  .cart-container {
+    margin-left: 300px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .cart-table {
+    width: auto;
+  }
+}
+.cart-table {
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.cart-table th,
+.cart-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.cart-item-image {
+  width: 80px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.quantity-cell {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cart-table input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+}
+.quantity-btn {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.quantity-btn:hover {
+  background-color: #218838;
+}
+.remove-btn {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.remove-btn:hover {
+  background-color: red;
+}
+.total-section {
+  margin-top: 30px;
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.buy-section {
+  margin-top: 20px;
+  text-align: right;
+}
+.buy-btn {
+  background-color: #000000;
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.buy-btn:hover {
+  background-color: #181919;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  min-width: 300px;
+  text-align: center;
+}
+.modal-content.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+.modal-content.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.modal-close {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  background: #ccc;
+  cursor: pointer;
+}

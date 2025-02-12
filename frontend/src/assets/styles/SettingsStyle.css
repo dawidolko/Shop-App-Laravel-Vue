@@ -1,0 +1,96 @@
+.auth-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+@media screen and (min-width: 640px) {
+  .auth-container {
+    margin-left: 300px;
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 300px;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+.primary-btn1 {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1em;
+  border: none;
+  min-width: 150px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.primary-btn1:hover {
+  background-color: #0056b3;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  min-width: 300px;
+  text-align: center;
+}
+
+.modal-content.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.modal-content.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.modal-close {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  background: #ccc;
+  cursor: pointer;
+}

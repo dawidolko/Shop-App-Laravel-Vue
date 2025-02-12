@@ -1,0 +1,96 @@
+.custom-sidebar {
+  width: 250px;
+  background-color: #fff;
+  padding: 16px;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  bottom: 70px;
+  overflow-y: auto;
+  border-right: 1px solid #e5e5e5;
+  z-index: 0;
+}
+
+.sidebar-content h3 {
+  margin-top: 8px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sidebar-logo {
+  max-width: 65%;
+  display: block;
+  margin: 0 auto 16px auto;
+}
+
+.sidebar-content {
+  font-size: 1rem;
+  color: #4a4a4a;
+}
+
+.category-item {
+  margin-bottom: 12px;
+  position: relative;
+  text-align: center;
+}
+
+.category-link {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s;
+}
+.category-link:hover {
+  background-color: #f5f5f5;
+}
+
+.brands-list {
+  padding-left: 20px;
+  margin-top: 4px;
+}
+
+.brand-link {
+  display: block;
+  padding: 4px 8px;
+  text-decoration: none;
+  color: #555;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+.brand-link:hover {
+  background-color: #eaeaea;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  overflow: hidden;
+}
+.slide-enter-from,
+.slide-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+.slide-enter-to,
+.slide-leave-from {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.sidebar-contact {
+  display: block;
+  margin-top: 24px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  border-top: 1px solid #e5e5e5;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .custom-sidebar {
+    display: none;
+  }
+}
