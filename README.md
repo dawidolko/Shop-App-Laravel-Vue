@@ -179,4 +179,4 @@ Created as a **practice project** for demonstrating a basic **Laravel + Vue** sh
 
 ## Project Status
 
-**In Development** – Creating...
+**In Development** – Finished project!
