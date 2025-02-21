@@ -87,7 +87,7 @@ project
 1. **Clone the repository**:
 
    ```bash
-   git clone https://gitlab.ideo.pl/d.olko/shop-app-laravel-vue
+   git clone https://github.com/dawidolko/Shop-App-Laravel-Vue
    cd shop-app-laravel-vue
    ```
 
