@@ -40,6 +40,13 @@ if ! grep -q "APP_KEY=base64:" .env; then
     php artisan key:generate
 fi
 
+# Create storage directories if they don't exist
+echo "Setting up storage directories..."
+mkdir -p storage/app/public
+mkdir -p storage/framework/{sessions,views,cache}
+mkdir -p storage/logs
+mkdir -p bootstrap/cache
+
 # Create storage link if it doesn't exist
 if [ ! -L public/storage ]; then
     echo "Creating storage link..."
@@ -50,6 +57,7 @@ fi
 echo "Setting permissions..."
 chown -R www-data:www-data /var/www/html/storage
 chown -R www-data:www-data /var/www/html/bootstrap/cache
+chown -R www-data:www-data /var/www/html/public/storage
 chmod -R 775 /var/www/html/storage
 chmod -R 775 /var/www/html/bootstrap/cache
 
@@ -63,3 +71,9 @@ echo "================================="
 
 # Start Apache
 exec apache2-foreground
+
+# Copy images from mounted directory to volume if they exist
+if [ -d "/var/www/html-mounted/storage/app/public" ]; then
+    echo "Copying images to storage volume..."
+    cp -rn /var/www/html-mounted/storage/app/public/* /var/www/html/storage/app/public/ 2>/dev/null || true
+fi
