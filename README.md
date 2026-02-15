@@ -1,4 +1,4 @@
-# Shop-App-Laravel-Vue 
+# Shop-App-Laravel-Vue
 
 > 🚀 **Modern E-Commerce Shop Application** - Build feature-rich online stores with Laravel backend, Vue.js frontend, and W3.CSS styling
 
