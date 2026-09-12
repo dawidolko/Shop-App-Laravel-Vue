@@ -1,342 +1,159 @@
-# Shop-App-Laravel-Vue
+# Shop App
 
-> 🚀 **Modern E-Commerce Shop Application** - Build feature-rich online stores with Laravel backend, Vue.js frontend, and W3.CSS styling
+> 🛒 **A basket that survives the browser** — a Laravel API and a Vue 3 storefront where the cart lives against the account, not in local storage
 
-## 📋 Description
+**Shop App** is a full-stack shop. Vue 3 renders the storefront — catalogue, categories, brands, product pages, basket and checkout — and Laravel 11 serves it over a JSON API secured with Sanctum. The basket is a table in the database, tied to the signed-in user, so it is still there on the next device and the next day.
 
-Welcome to the **Shop App** repository! This full-stack e-commerce application retrieves product data from an external mock API and displays them in a modern, user-friendly interface. Built with a powerful Laravel backend and dynamic Vue.js frontend, this project demonstrates professional web development practices for building scalable online stores.
+Checkout is not a single button: it collects shipping, invoice and payment details into their own tables and turns the basket into a purchase, which the account area can then list.
 
-The application features product listing, detailed product pages, shopping cart functionality, and seamless navigation using Vue Router. Styled with the W3.CSS Clothing Store template, this project showcases best practices in API integration, state management, and responsive design implementation.
+![Laravel](https://img.shields.io/badge/Laravel-11-FF2D20?logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?logo=php&logoColor=white)
+![Vue.js](https://img.shields.io/badge/Vue.js-3-4FC08D?logo=vuedotjs&logoColor=white)
+![Pinia](https://img.shields.io/badge/Pinia-2-FFD859?logo=vuedotjs&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## 📁 Repository Structure
+---
 
-```
+## 🎯 Key Features
 
-Shop-App-Laravel-Vue/
-├── 📁 backend/ # Laravel backend application
-│ ├── 📁 app/
-│ │ ├── 🎮 Http/
-│ │ │ └── Controllers/ # API controllers
-│ │ ├── 📦 Models/ # Eloquent models
-│ │ └── 🔧 Services/ # Business logic services
-│ ├── 📁 config/ # Configuration files
-│ ├── 📁 database/
-│ │ ├── 🌱 seeders/ # Database seeders
-│ │ └── 🔄 migrations/ # Database migrations
-│ ├── 📁 routes/
-│ │ ├── 🌐 web.php # Web routes
-│ │ ├── 🔌 api.php # API endpoints
-│ │ └── ⚙️ console.php # Console commands
-│ ├── 📁 public/ # Public assets
-│ ├── 📁 resources/ # Views and assets
-│ ├── 📁 storage/ # Application storage
-│ ├── 📁 tests/ # Unit and feature tests
-│ ├── ⚙️ .env.example # Environment template
-│ ├── 🎯 artisan # Laravel CLI
-│ ├── 📦 composer.json # PHP dependencies
-│ ├── 🔧 vite.config.js # Vite configuration
-│ ├── 🔧 start.sh # Linux/macOS startup script
-│ ├── 🔧 start.bat # Windows startup script
-│ └── 📖 README.md # Backend documentation
-├── 📁 frontend/ # Vue.js frontend application
-│ ├── 📁 src/
-│ │ ├── ⚛️ components/ # Vue components
-│ │ ├── 📄 views/ # Page views
-│ │ ├── 🗂️ store/ # Vuex/Pinia state management
-│ │ ├── 🔀 router/ # Vue Router configuration
-│ │ ├── 🎨 assets/ # Images and styles
-│ │ ├── 💻 App.vue # Main Vue component
-│ │ └── 🚀 main.js # Vue entry point
-│ ├── 📄 index.html # Main HTML file
-│ ├── 📦 package.json # Node.js dependencies
-│ ├── 🔧 vite.config.js # Vite configuration
-│ ├── 🎨 tailwind.config.js # Tailwind CSS config
-│ ├── 🔧 start.sh # Linux/macOS startup script
-│ ├── 🔧 start.bat # Windows startup script
-│ ├── 📦 archive.sh # Project archiving script
-│ ├── 📦 archive.bat # Project archiving script (Windows)
-│ ├── 📝 CHANGELOG # Version history
-│ └── 📖 README.md # Frontend documentation
-├── 📁 docs/ # Project documentation
-├── 📁 database/ # Database diagrams and files
-└── 📖 README.md # Main project documentation
+- **The basket is a table, not browser state** — `user_product` ties a line to an account, so closing the tab, switching machine or signing in elsewhere finds the same basket.
+- **Checkout writes the paperwork** — shipping details, invoice details and payment details each land in their own table, and the basket becomes a `Purchase` the account area can list.
+- **Browse by category or by brand** — the API exposes both, and the brand list is scoped to the category you are in rather than being one flat list.
+- **Search over the catalogue** — a dedicated endpoint, so the front end never filters a full product list in the browser.
+- **Token authentication** — Sanctum issues the token, Pinia holds the session, and every protected route sits behind `auth:sanctum`.
+- **Contact and newsletter go somewhere** — both forms write to their own tables instead of sending mail into the void.
+- **Routing that covers the edges** — help, support, about and a 404 view are part of the router, not afterthoughts.
 
-```
+---
+
+## 🧩 API Endpoints
+
+| Method   | Path                             | Guard   | Purpose                              |
+| -------- | -------------------------------- | ------- | ------------------------------------ |
+| `POST`   | `/api/register`                  | —       | Create an account.                   |
+| `POST`   | `/api/login`                     | —       | Issue a Sanctum token.               |
+| `POST`   | `/api/logout`                    | sanctum | Revoke the token.                    |
+| `POST`   | `/api/user/update`               | sanctum | Update the account.                  |
+| `GET`    | `/api/products`                  | —       | The catalogue.                       |
+| `GET`    | `/api/products/categories`       | —       | Category list.                       |
+| `GET`    | `/api/products/brands/{category}`| —       | Brands within a category.            |
+| `GET`    | `/api/products/category/{slug}`  | —       | Products in a category.              |
+| `GET`    | `/api/products/brand/{brand}`    | —       | Products of a brand.                 |
+| `GET`    | `/api/products/search`           | —       | Search the catalogue.                |
+| `GET`    | `/api/products/{id}`             | —       | One product.                         |
+| `GET`    | `/api/cart`                      | sanctum | The basket.                          |
+| `POST`   | `/api/cart/add`                  | sanctum | Add a line.                          |
+| `POST`   | `/api/cart/update-quantity`      | sanctum | Change a quantity.                   |
+| `DELETE` | `/api/cart/{id}`                 | sanctum | Remove a line.                       |
+| `POST`   | `/api/cart/buy`                  | sanctum | Turn the basket into a purchase.     |
+| `POST`   | `/api/checkout`                  | sanctum | Shipping, invoice and payment data.  |
+| `GET`    | `/api/purchases`                 | sanctum | Purchase history.                    |
+| `POST`   | `/api/subscribe`                 | sanctum | Newsletter sign-up.                  |
+| `POST`   | `/api/contact`                   | sanctum | Contact message.                     |
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend
+
+| Technology          | Version | Role                                              |
+| ------------------- | ------- | ------------------------------------------------- |
+| **Laravel**         | 11      | JSON API, Eloquent, migrations, validation.       |
+| **PHP**             | 8.2     | Runtime.                                          |
+| **Laravel Sanctum** | 4       | Token authentication for the SPA.                 |
+| **MySQL**           | 8       | Products, baskets, purchases, checkout details.   |
+
+### Frontend
+
+| Technology       | Version | Role                                          |
+| ---------------- | ------- | --------------------------------------------- |
+| **Vue.js**       | 3       | Composition API, single-file components.      |
+| **Vue Router**   | 4       | Views and guarded routes.                     |
+| **Pinia**        | 2       | Session store.                                |
+| **Vite**         | 5       | Dev server and build.                         |
+| **Axios**        | 1.7     | API calls with the bearer token.              |
+| **W3.CSS**       | —       | Base stylesheet.                              |
+
+---
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repository
+### Prerequisites
+
+- PHP 8.2 or newer with Composer
+- Node.js 18 or newer with npm
+- MySQL 8 (or MariaDB)
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/dawidolko/Shop-App-Laravel-Vue.git
 cd Shop-App-Laravel-Vue
 ```
 
-### 2. Backend Setup (Laravel)
-
-#### Navigate to Backend Directory:
+### 2. Backend
 
 ```bash
 cd backend
-```
-
-#### Linux/macOS:
-
-```bash
-bash start.sh
-```
-
-#### Windows:
-
-```bash
-start.bat
-```
-
-#### Manual Setup:
-
-```bash
-# Install PHP dependencies
 composer install
-
-# Create environment file
 cp .env.example .env
-
-# Generate application key
 php artisan key:generate
-
-# Configure database in .env file
-
-# Run database migrations
-php artisan migrate
-
-# (Optional) Seed database
-php artisan db:seed
 ```
 
-### 3. Frontend Setup (Vue.js)
+Set the database in `.env`, then create the schema and load the catalogue:
 
-#### Navigate to Frontend Directory:
+```bash
+php artisan migrate --seed      # ProductsTableSeeder fills the shop
+php artisan serve               # http://127.0.0.1:8000
+```
+
+### 3. Frontend
 
 ```bash
 cd ../frontend
-```
-
-#### Linux/macOS:
-
-```bash
-bash start.sh
-```
-
-#### Windows:
-
-```bash
-start.bat
-```
-
-#### Manual Setup:
-
-```bash
-# Install Node.js dependencies
 npm install
+npm run dev                     # http://localhost:5173
 ```
 
-### 4. Start the Application
+---
 
-#### Start Laravel Backend:
-
-```bash
-cd backend
-php artisan serve
-```
-
-- Backend API runs at [http://localhost:8000](http://localhost:8000)
-
-#### Start Vue Frontend:
-
-```bash
-cd frontend
-npm run dev
-```
-
-- Frontend application runs at [http://localhost:5173](http://localhost:5173) (or the port shown in terminal)
-
-## ⚙️ System Requirements
-
-### **Essential Tools:**
-
-- **PHP** (version 8.0 or higher)
-- **Composer** for PHP dependency management
-- **Node.js** (version 14.0 or higher)
-- **npm** or **yarn** for JavaScript packages
-- **MySQL** or compatible database system
-- **Git** for version control
-
-### **Development Environment:**
-
-- **Laravel** (latest version)
-- **Vue.js 3** with Composition API
-- **Vite** for fast development and building
-- **Code Editor** (VS Code, PhpStorm, WebStorm)
-- **API Testing Tool** (Postman, Insomnia)
-
-### **External Services:**
-
-- **Mock API** - Product data from [run.mocky.io](https://run.mocky.io/v3/3266bd9d-30b5-4ace-bc63-71e411028060)
-- Internet connection for external API requests
-
-### **Recommended Extensions:**
-
-- **Volar** for Vue 3 support in VS Code
-- **Laravel** and **PHP** IntelliSense
-- **Vue DevTools** browser extension
-- **ESLint** for JavaScript code quality
-- **Prettier** for code formatting
-- **Tailwind CSS IntelliSense**
-
-### **Frontend Stack:**
-
-- **Vue.js 3** - Progressive JavaScript framework
-- **Vue Router** - Client-side routing
-- **Vuex** or **Pinia** - State management
-- **W3.CSS** - Responsive CSS framework
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vite** - Next generation frontend tooling
-
-## ✨ Key Features
-
-### **🛍️ Product Catalog**
-
-- Dynamic product listing from external mock API
-- Grid-based responsive product display
-- Product images, prices, and descriptions
-- W3.CSS Clothing Store template integration
-
-### **📄 Product Details**
-
-- Dedicated product detail pages
-- Comprehensive product information display
-- High-quality product images
-- Add to cart functionality from detail page
-
-### **🛒 Shopping Cart**
-
-- Add products to cart from list or detail pages
-- Real-time cart state management
-- Cart item quantity management
-- Persistent cart state across navigation
-
-### **🔀 Seamless Navigation**
-
-- Vue Router for single-page application experience
-- Smooth transitions between views
-- Breadcrumb navigation
-- Back/forward browser support
-
-### **📊 State Management**
-
-- Global state management with Vuex or Pinia
-- Persistent cart state across pages
-- Centralized application data flow
-- Reactive state updates
-
-### **📱 Responsive Design**
-
-- Mobile-first W3.CSS template
-- Fully responsive layouts for all devices
-- Modern CSS Grid and Flexbox
-- Touch-friendly interface elements
-
-### **⚡ Modern Build Tools**
-
-- Vite for lightning-fast HMR (Hot Module Replacement)
-- Optimized production builds
-- Efficient code splitting
-- Asset optimization
-
-## 🛠️ Technologies Used
-
-- **Laravel** - Robust PHP framework for backend
-- **Vue.js 3** - Progressive JavaScript framework
-- **Vue Router** - Official routing library for Vue
-- **Vuex/Pinia** - State management pattern + library
-- **MySQL** - Relational database management
-- **W3.CSS** - Modern CSS framework
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vite** - Next generation frontend build tool
-- **Axios** - Promise-based HTTP client
-- **Composer** - PHP dependency management
-- **NPM** - Node.js package management
-
-## 🌍 API Configuration
-
-### **Mock API Endpoint**
-
-The application retrieves product data from:
+## 📁 Project Structure
 
 ```
-https://run.mocky.io/v3/3266bd9d-30b5-4ace-bc63-71e411028060
+Shop-App-Laravel-Vue/
+├── backend/                          # Laravel 11 API
+│   ├── app/
+│   │   ├── Http/Controllers/
+│   │   │   ├── ProductController.php   # catalogue, categories, brands, search
+│   │   │   ├── CartController.php      # basket lines and buying
+│   │   │   ├── CheckoutController.php  # shipping, invoice, payment
+│   │   │   ├── PurchaseController.php  # order history
+│   │   │   ├── AuthController.php
+│   │   │   ├── SubscribeController.php
+│   │   │   └── ContactController.php
+│   │   └── Models/
+│   │       ├── Product.php   UserProduct.php   Purchase.php
+│   │       ├── ShippingDetail.php   InvoiceDetail.php   PaymentDetail.php
+│   │       └── Subscribe.php   Contact.php   User.php
+│   ├── database/
+│   │   ├── migrations/                 # products, baskets, purchases, checkout tables
+│   │   └── seeders/ProductsTableSeeder.php
+│   └── routes/api.php                  # the table above
+├── frontend/                         # Vue 3 + Vite
+│   └── src/
+│       ├── views/                      # Home, Category, Brand, ProductDetail, Cart, Auth…
+│       ├── layouts/                    # shared shell
+│       ├── stores/auth.js              # Pinia session
+│       └── router/                     # routes and guards
+├── database/                         # SQL dump for a quick import
+└── docs/                             # documentation
 ```
 
-You can modify this URL in your Vue application's configuration or environment files (`frontend/src/config` or `.env` files).
-
-### **Database Configuration**
-
-Update `.env` in the Laravel `backend` folder to match your local MySQL configuration:
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=your_database_name
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
-```
-
-### **State Management Setup**
-
-Configure Vuex or Pinia in the `frontend/src/store` folder for managing shared states like shopping cart or user session data.
-
-## 📖 Usage Guide
-
-### **1. Browse Products**
-
-Visit the Vue application homepage to see all products retrieved from the mock API, displayed in a clean W3.CSS-styled layout.
-
-### **2. View Product Details**
-
-Click on any product to navigate to its detail page with comprehensive information and the ability to add to cart.
-
-### **3. Manage Shopping Cart**
-
-- Add items from product list or detail pages
-- Cart state persists across page navigation
-- View cart contents and manage quantities
-
-### **4. Backend Integration**
-
-Laravel provides core logic and can store additional data (user management, orders, reviews) in MySQL for enhanced functionality.
-
-## 📊 Project Status
-
-✅ **Completed** - Fully functional e-commerce application with cart management!
-
-## 🤝 Contributing
-
-Contributions are highly welcomed! Here's how you can help:
-
-- 🐛 **Report bugs** - Found an issue? Let us know!
-- 💡 **Suggest improvements** - Have ideas for better features?
-- 🔧 **Submit pull requests** - Share your enhancements and solutions
-- 📖 **Improve documentation** - Help make the project clearer
-
-Feel free to open issues or reach out through GitHub for any questions or suggestions.
-
-## 👨‍💻 Author
-
-Created by **Dawid Olko** - Part of the full-stack web development series.
+---
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
-
----
+MIT © [Dawid Olko](https://dawidolko.pl)
