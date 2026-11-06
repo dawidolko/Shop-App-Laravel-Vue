@@ -258,7 +258,9 @@ function closeEnlargedImage() {
   height: auto;
   border-radius: 4px;
 }
-/* Dodany czerwony przycisk zamykania */
+/*
+ * Red close button
+ */
 .close-btn {
   position: absolute;
   top: 10px;

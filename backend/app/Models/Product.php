@@ -11,9 +11,6 @@ class Product extends Model
 {
     use HasFactory;
 
-    /**
-     * Mass assignment – pola, które mogą być wypełniane masowo.
-     */
     protected $fillable = [
         'title',
         'description',
@@ -28,14 +25,14 @@ class Product extends Model
     ];
 
     /**
-     * Rzutowanie kolumn do typów – 'images' jest JSON-em w bazie.
+     * Column casts - 'images' is stored as JSON in the database.
      */
     protected $casts = [
         'images' => 'array',
     ];
 
     /**
-     * Relacja wiele-do-wielu z modelem User (tabela pivot 'user_product').
+     * Many-to-many relation with the User model (pivot table 'user_product').
      */
     public function users(): BelongsToMany
     {

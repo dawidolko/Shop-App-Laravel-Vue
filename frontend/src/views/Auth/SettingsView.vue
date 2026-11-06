@@ -80,7 +80,6 @@ async function submitUpdate() {
       showModal.value = true;
     } else {
       const data = await res.json();
-      // zaktualizuj store user (odśwież)
       authStore.user = data.user;
       modalMessage.value = "Profile updated successfully";
       modalType.value = "success";

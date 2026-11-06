@@ -44,7 +44,7 @@ export const useAuthStore = defineStore("authStore", {
         this.errors = {};
         localStorage.setItem("token", data.token);
         this.user = data.user;
-        this.router.push({ name: "home" }); // przeniesienie na stronę główną
+        this.router.push({ name: "home" });
       }
     },
     /******************* Logout user *******************/

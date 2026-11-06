@@ -73,7 +73,10 @@ const errors = computed(() => authStore.errors || {});
 
 const showModal = ref(false);
 const modalMessage = ref("");
-const modalType = ref(""); // "error" lub "success"
+/*
+ * "error" or "success"
+ */
+const modalType = ref("");
 
 async function submitRegister() {
   await authStore.authenticate("register", formData);

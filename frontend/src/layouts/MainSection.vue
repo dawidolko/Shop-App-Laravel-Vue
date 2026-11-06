@@ -159,7 +159,9 @@ async function addToCart(productId) {
     }
     showModal.value = true;
   } else {
-    // Niezalogowany użytkownik może dodawać do koszyka (przechowywany lokalnie)
+    /*
+     * A guest can add to the cart (stored locally)
+     */
     let guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
     const existingItem = guestCart.find(
       (item) => item.product_id === productId

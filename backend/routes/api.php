@@ -14,7 +14,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Rejestracja, logowanie, wylogowanie
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
@@ -29,7 +28,9 @@ Route::get('/products/brand/{brand}', [ProductController::class, 'productsByBran
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/search', [ProductController::class, 'search']);
 
-// Koszyk (wymaga auth)
+/*
+ * Cart (requires auth)
+ */
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart/add', [CartController::class, 'add']);

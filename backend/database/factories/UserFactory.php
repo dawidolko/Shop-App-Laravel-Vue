@@ -33,7 +33,7 @@ class UserFactory extends Factory
     }
 
     /**
-     * Stan: niezweryfikowany email.
+     * State: unverified email.
      */
     public function unverified(): static
     {

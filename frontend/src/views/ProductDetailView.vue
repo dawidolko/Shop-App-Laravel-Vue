@@ -178,7 +178,9 @@ function validateQuantity() {
 }
 
 async function addToCart(productId) {
-  // Używamy lokalnej wartości ilości, rzutując ją na liczbę
+  /*
+   * Use the local quantity value, cast to a number
+   */
   const qty = Number(quantity.value) || 1;
   if (qty > product.value.stock) {
     modalMessage.value = "Requested quantity exceeds available stock";
@@ -230,7 +232,9 @@ async function addToCart(productId) {
     modalType.value = "success";
   }
   showModal.value = true;
-  // Resetujemy ilość do 1 po dodaniu produktu
+  /*
+   * Reset the quantity to 1 after adding the product
+   */
   quantity.value = 1;
 }
 
@@ -261,7 +265,6 @@ onMounted(() => {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Media query dla ekranów poniżej 1200px */
 @media screen and (max-width: 1200px) {
   .product-detail-box {
     max-width: 350px;

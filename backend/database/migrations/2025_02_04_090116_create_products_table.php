@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id(); // Możesz użyć $table->bigInteger('id')->unsigned()->primary(); jeśli chcesz wstawiać własne ID
+            /*
+             * You can use $table->bigInteger('id')->unsigned()->primary(); if you want to insert your own IDs
+             */
+            $table->id();
             $table->string('title', 255);
             $table->text('description');
             $table->decimal('price', 10, 2);
@@ -22,7 +25,9 @@ return new class extends Migration
             $table->string('brand', 255);
             $table->string('category', 255);
             $table->string('thumbnail', 255);
-            // Pole na wiele obrazków: zapisane jako JSON
+            /*
+             * Field for multiple images, stored as JSON
+             */
             $table->json('images')->nullable();
             
             $table->timestamps(); 

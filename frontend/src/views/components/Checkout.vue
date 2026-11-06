@@ -2,7 +2,9 @@
   <div class="checkout-container">
     <h1 class="checkout-title">Checkout</h1>
 
-    <!-- Krok 1: Dane wysyłki -->
+    <!--
+      Step 1: Shipping details
+    -->
     <div v-if="currentStep === 1 && !cartEmpty" class="form-step">
       <h2>Shipping Details</h2>
       <form @submit.prevent="goToNextStep">
@@ -66,7 +68,9 @@
       </form>
     </div>
 
-    <!-- Krok 2: Dane faktury -->
+    <!--
+      Step 2: Invoice details
+    -->
     <div v-else-if="currentStep === 2 && !cartEmpty" class="form-step">
       <h2>Invoice Details</h2>
       <form @submit.prevent="goToNextStep">
@@ -138,7 +142,9 @@
       </form>
     </div>
 
-    <!-- Krok 3: Dane płatności -->
+    <!--
+      Step 3: Payment details
+    -->
     <div v-else-if="currentStep === 3 && !cartEmpty" class="form-step">
       <h2>Payment Details</h2>
       <form @submit.prevent="submitCheckout">
@@ -276,7 +282,9 @@ async function submitCheckout() {
     openModal("You must be logged in to complete purchase", "error");
     return;
   }
-  // Sprawdzenie daty wygaśnięcia karty
+  /*
+   * Check the card expiry date
+   */
   const [expMonth, expYear] = payment.expiration_date.split("/");
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1;
@@ -326,7 +334,6 @@ function closeModal() {
   modalType.value = "";
 }
 
-// Funkcja sprawdzająca zawartość koszyka
 async function checkCart() {
   let empty = true;
   if (authStore.user) {
@@ -346,7 +353,6 @@ async function checkCart() {
       console.error("Error fetching cart", error);
     }
   } else {
-    // Dla gościa pobieramy z localStorage
     const guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
     if (guestCart.length > 0) {
       empty = false;
@@ -414,7 +420,6 @@ onMounted(async () => {
   border-radius: 4px;
 }
 
-/* Stylizacja dla disabled input */
 .form-group input[disabled] {
   background-color: rgba(128, 128, 128, 0.8);
   color: #fff;

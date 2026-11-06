@@ -20,7 +20,6 @@ class CheckoutController extends Controller
         }
 
         $data = $request->validate([
-            // Dane wysyłki
             'shipping.first_name'    => 'required|string|max:255',
             'shipping.last_name'     => 'required|string|max:255',
             'shipping.address'       => 'required|string|max:500',

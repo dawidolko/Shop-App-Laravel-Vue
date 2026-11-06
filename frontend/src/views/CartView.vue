@@ -244,25 +244,33 @@ onMounted(() => {
   font-family: Arial, sans-serif;
 }
 
-/* Klasa .hide pozostaje, będzie wykorzystywana w media query */
+/*
+ * The .hide class stays; it is used in a media query
+ */
 .hide {
 }
 
-/* Ustawienie marginesu dla szerszych ekranów */
+/*
+ * Margin for wider screens
+ */
 @media screen and (min-width: 910px) {
   .cart-container {
     margin-left: 300px;
   }
 }
 
-/* Przykładowa zmiana szerokości tabeli dla ekranów poniżej 900px */
+/*
+ * Example table width change for screens below 900px
+ */
 @media screen and (max-width: 900px) {
   .cart-table {
     width: auto;
   }
 }
 
-/* Media query dla ekranów poniżej 920px - ukrywanie kolumn z klasą .hide */
+/*
+ * Hide .hide columns on screens below 920px
+ */
 @media screen and (max-width: 920px) {
   .hide {
     display: none;
