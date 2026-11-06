@@ -156,4 +156,4 @@ Shop-App-Laravel-Vue/
 
 ## 📄 License
 
-MIT © [Dawid Olko](https://dawidolko.pl)
+MIT © [Dawid Olko](https://dawidolko.pl). Images keep their own terms, listed in [CREDITS.md](CREDITS.md).
